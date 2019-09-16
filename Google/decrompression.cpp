@@ -1,7 +1,6 @@
 // https://techdevguide.withgoogle.com/paths/advanced/compress-decompression/#!
 // Input: 2[3[a]b] -> output: aaabaaab
 // Input 3[abc]4[ab] -> output: abcabcabcabababab
-// For now, this program does not handle single characters
 
 #include <iostream>
 

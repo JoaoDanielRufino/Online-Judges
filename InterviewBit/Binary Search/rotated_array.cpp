@@ -5,7 +5,7 @@ int findPivot(const vector<int> &A, int l, int r) {
     if(r == l)
         return r;
         
-    int mid = r - l / 2;
+    int mid = (r + l) / 2;
     if(mid < r && A[mid] > A[mid+1])
         return mid+1;
         

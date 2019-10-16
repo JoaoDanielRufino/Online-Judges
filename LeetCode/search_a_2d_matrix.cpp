@@ -33,9 +33,9 @@ public:
                 return true;
             
             if(matrix[line][mid] > target)
-                j--;
+                j = mid-1;
             else
-                i++;
+                i = mid+1;
         }
         
         return false;

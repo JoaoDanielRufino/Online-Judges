@@ -1,0 +1,38 @@
+// https://www.geeksforgeeks.org/detect-and-remove-loop-in-a-linked-list/
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        if(!head || !head->next)
+            return nullptr;
+        
+        ListNode *slow, *fast;
+    
+        slow = fast = head;
+        while(slow && fast && fast->next) {
+            slow = slow->next;
+            fast = fast->next->next;
+            if(slow == fast)
+                break;
+        }
+
+        if(slow == fast) {
+            slow = head;
+            while(slow != fast) {
+                slow = slow->next;
+                fast = fast->next;
+            }
+            return slow;
+        }
+    
+        return nullptr;
+    }
+};

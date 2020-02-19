@@ -1,24 +1,25 @@
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
- * };
- */
 class Solution {
 public:
-    int numComponents(ListNode* head, vector<int>& G) {
-        set<int> hash(G.begin(), G.end());
-        ListNode *curr = head;
+    string breakPalindrome(string palindrome) {
+        if(palindrome.size() == 1)
+            return "";
         
-        int count = 0;
-        while(curr) {
-            if(hash.count(curr->val) && (!curr->next || !hash.count(curr->next->val)))
-                count++;
-            curr = curr->next;
+        int i = 0;
+        while(i < palindrome.size() && palindrome[i] == 'a')
+            i++;
+        
+        if(palindrome.size() & 1) {
+            if(i == palindrome.size() / 2) {
+                palindrome[palindrome.size()-1] = 'b';
+                return palindrome;
+            }
         }
         
-        return count;
+        if(i == palindrome.size())
+            palindrome[i-1] = 'b';
+        else
+            palindrome[i] = 'a';
+        
+        return palindrome;
     }
 };

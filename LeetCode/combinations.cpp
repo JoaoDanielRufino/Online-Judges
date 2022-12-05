@@ -1,36 +1,23 @@
 class Solution {
 public:
-    vector< vector<int> > res;
-    
-    void solve(vector<int>& nums, vector<int> current, int start, int k) {
-        if(current.size() > k)
-            return;
-        
-        if(current.size() == k) {
-            res.push_back(current);
+    vector<vector<int>> ans;
+
+    void solve(int n, int k, int start, vector<int> curr) {
+        if(curr.size() == k) {
+            ans.push_back(curr);
             return;
         }
-        
-        for(int i = start; i < nums.size(); i++) {
-            if(nums[i] != -1) {
-                int aux = nums[i];
-                nums[i] = -1;
-                current.push_back(aux);
-                solve(nums, current, i, k);
-                current.pop_back();
-                nums[i] = aux;
-            }
+
+        for(int i = start; i <= n; i++) {
+            curr.push_back(i);
+            solve(n, k, i + 1, curr);
+            curr.pop_back();
         }
     }
-    
+
     vector<vector<int>> combine(int n, int k) {
-        vector<int> nums, current;
-        
-        for(int i = 1; i <= n; i++)
-            nums.push_back(i);
-        
-        solve(nums, current, 0, k);
-        
-        return res;
+        solve(n, k, 1, vector<int>());
+
+        return ans;
     }
 };

@@ -29,3 +29,29 @@ public:
         return res;
     }
 };
+
+// Monotonic stack
+class Solution {
+public:
+    vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+        vector<int> ans(nums1.size(), -1);
+        unordered_map<int, int> mp;
+        stack<int> st;
+
+        for(int x : nums2) {
+            while(!st.empty() && x > st.top()) {
+                mp[st.top()] = x;
+                st.pop();
+            }
+
+            st.push(x);
+        }
+
+        for(int i = 0; i < nums1.size(); i++) {
+            if(mp.count(nums1[i]))
+                ans[i] = mp[nums1[i]];
+        }
+
+        return ans;
+    }
+};

@@ -1,30 +1,65 @@
-func extractWord(s string, start int) string {
-    word := ""
+type Stack struct {
+    arr []string
+}
 
-    for i := start; i >= 0; i-- {
-        if s[i] == ' ' {
-            break
-        }
+func (s *Stack) push(str string) {
+    s.arr = append(s.arr, str)
+}
 
-        word = string(s[i]) + word
+func (s *Stack) pop() string {
+    size := len(s.arr)
+    elem := s.arr[size-1]
+    s.arr = s.arr[:size-1]
+    return elem
+}
+
+func (s *Stack) size() int {
+    return len(s.arr)
+}
+
+func getWord(s string, i int) string {
+    var word strings.Builder
+
+    for i < len(s) && s[i] != ' ' {
+        word.WriteByte(s[i])
+        i++
     }
 
-    return word
+    return word.String()
 }
 
 func reverseWords(s string) string {
-    ans := ""
+    stack := Stack{
+        arr: []string{},
+    } 
 
-    i := len(s)-1
-    for i >= 0 {
-        if s[i] != ' ' {
-            word := extractWord(s, i)
-            ans += word + " "
-            i -= len(word)
+    i := 0
+    for i < len(s) {
+        for i < len(s) && s[i] == ' ' {
+            i++
+        }
+
+        if i >= len(s) {
+            break
+        }
+
+        word := getWord(s, i)
+
+        stack.push(word)
+
+        i += len(word)
+    }
+
+    var reversed strings.Builder
+
+    for stack.size() > 0 {
+        if stack.size() == 1 {
+            reversed.WriteString(stack.pop())
         } else {
-            i--
+            reversed.WriteString(stack.pop())
+            reversed.WriteString(" ")
         }
     }
 
-    return ans[:len(ans)-1]
+    return reversed.String()
 }
